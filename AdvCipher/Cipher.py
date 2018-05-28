@@ -105,3 +105,46 @@ def keyValid(key):
         return False
     return True
 ####################################################################################################
+
+####################################################################################################
+######################################################### Main Loop
+def loop():
+    
+    quitloop = False
+    
+    while(quitloop==False):
+        func = input("> ")
+        func=func.lower()
+        if(func=="quit"):
+            quitloop = True
+        elif(func=="encrypt"):
+            key = input("Key: ")
+            if(keyValid(key) == False):
+                print("The key you have entered is invalid.")
+            else:
+                msg = input("Message: ")
+                if(messageValid(msg)==False):
+                    print("The message you have entered contains invalid characters.")
+                else:
+                    print("Your generated ciphertext is: ")
+                    print(encrypt(msg, key))
+        elif(func=="decrypt"):
+            key = input("Key: ")
+            if(keyValid(key) == False):
+                print("The key you have entered is invalid.")
+            else:
+                msg = input("Ciphertext: ")
+                if(messageValid(msg)==False):
+                    print("The ciphertext you have entered contains invalid characters.")
+                else:
+                    print("Your plaintext is: ")
+                    print(decrypt(msg, key))
+        elif(func=="author"):
+            print("Pseudo ~")
+            print("GitHub: https://github.com/Pseudooo")
+        else:
+            print("Invalid Function.")
+
+####################################################################################################
+
+loop()
