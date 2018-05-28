@@ -110,39 +110,49 @@ def keyValid(key):
 ######################################################### Main Loop
 def loop():
     
+    #Loop function that allows users to actually use functions
+    
     quitloop = False
     
     while(quitloop==False):
-        func = input("> ")
+        
+        func = input("> ") #Get desired function
         func=func.lower()
+        
         if(func=="quit"):
-            quitloop = True
-        elif(func=="encrypt"):
-            key = input("Key: ")
-            if(keyValid(key) == False):
+            quitloop = True #Quit Loop
+            
+        elif(func=="encrypt"): #Encrypting a message
+            
+            key = input("Key: ") 
+            if(keyValid(key) == False): #Validate Key
                 print("The key you have entered is invalid.")
             else:
                 msg = input("Message: ")
-                if(messageValid(msg)==False):
+                if(messageValid(msg)==False): #Validate Message
                     print("The message you have entered contains invalid characters.")
                 else:
                     print("Your generated ciphertext is: ")
-                    print(encrypt(msg, key))
-        elif(func=="decrypt"):
+                    print(encrypt(msg, key)) #Return ciphertext
+                    
+        elif(func=="decrypt"): #Decrypting a message
+            
             key = input("Key: ")
-            if(keyValid(key) == False):
+            if(keyValid(key) == False): #Validating key
                 print("The key you have entered is invalid.")
             else:
                 msg = input("Ciphertext: ")
-                if(messageValid(msg)==False):
+                if(messageValid(msg)==False): #Validating message
                     print("The ciphertext you have entered contains invalid characters.")
                 else:
                     print("Your plaintext is: ")
-                    print(decrypt(msg, key))
-        elif(func=="author"):
+                    print(decrypt(msg, key)) #Return plaintext
+                    
+        elif(func=="author"): #About me! OwO
             print("Pseudo ~")
             print("GitHub: https://github.com/Pseudooo")
-        else:
+            
+        else: #Invalid
             print("Invalid Function.")
 
 ####################################################################################################
