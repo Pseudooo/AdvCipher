@@ -113,25 +113,25 @@ def encryptFile():
     
     # Function that allows for the encryption of files 
     print("Please note that this will only work for raw text files")
-    TargetFile = Path(input("File: "))
+    TargetFile = Path(input("File: ")) #Take File path from user
     if TargetFile.is_file()==False:
-        print("The Path you have entered is not valid.")
+        print("The Path you have entered is not valid.") #Invalid file
     else:
-        key = input("Key: ")
+        key = input("Key: ") #Take Key
         if keyValid(key)==False:
-            print("The Key you have entered is not valid.")
+            print("The Key you have entered is not valid.") #Invalid key
         else:
             print("Reading file...")
             FileObj = open(TargetFile, "r")
-            FileLines = FileObj.readlines()
+            FileLines = FileObj.readlines() #Construct array from lines
             
             print("Selected File has:")
-            print(str(len(FileLines)) + " Lines")
+            print(str(len(FileLines)) + " Lines") #Confirmation
             
             if input("Continue? [Y/N] ")=="Y":
                 
                 for n in range(0,len(FileLines)):
-                    FileLines[n]=FileLines[n].strip("\n")
+                    FileLines[n]=FileLines[n].strip("\n") #Encrypt lines and update array indexes 1 at a time
                     if(messageValid(FileLines[n])==False):
                         print("Error : Line "+str(n)+" has invalid characters and will not be encrypted "+FileLines[n])
                     else:
@@ -141,7 +141,7 @@ def encryptFile():
                 print("File Encryption is done")
                 print("Writing to file...")
                 FileObj.close()
-                FileObj = open(TargetFile, "w+")
+                FileObj = open(TargetFile, "w+") #Write resultant array to file
                 FileObj.writelines(FileLines)
                 print("Done!")
     return
@@ -239,6 +239,5 @@ def loop():
             decryptFile()
         else: #Invalid
             print("Invalid Function.")
-
 ####################################################################################################
 loop()
