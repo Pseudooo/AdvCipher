@@ -122,7 +122,7 @@ def encryptFile():
             print("The Key you have entered is not valid.")
         else:
             print("Reading file...")
-            FileObj = open(TargetFile)
+            FileObj = open(TargetFile, "r")
             FileLines = FileObj.readlines()
             
             print("Selected File has:")
@@ -131,21 +131,61 @@ def encryptFile():
             if input("Continue? [Y/N] ")=="Y":
                 
                 for n in range(0,len(FileLines)):
+                    FileLines[n]=FileLines[n].strip("\n")
                     if(messageValid(FileLines[n])==False):
-                        print("Error : Line "+str(n)+" has invalid characters and will not be encrypted")
+                        print("Error : Line "+str(n)+" has invalid characters and will not be encrypted "+FileLines[n])
                     else:
-                        print("Encrypting Line: "+str(n)+"/"+str(len(FileLines)))
+                        print("Encrypting Line: "+str(n+1)+"/"+str(len(FileLines)))
                         FileLines[n]=encrypt(FileLines[n], key)+"\n"
                         print("Done!")
                 print("File Encryption is done")
                 print("Writing to file...")
-                
+                FileObj.close()
+                FileObj = open(TargetFile, "w+")
                 FileObj.writelines(FileLines)
                 print("Done!")
-                    
-    
+    return
 ####################################################################################################
 
+####################################################################################################
+######################################################### Encrypt File Method
+def decryptFile():
+    
+    # Function that allows for the encryption of files 
+    print("Please note that this will only work for raw text files")
+    TargetFile = Path(input("File: "))
+    if TargetFile.is_file()==False:
+        print("The Path you have entered is not valid.")
+    else:
+        key = input("Key: ")
+        if keyValid(key)==False:
+            print("The Key you have entered is not valid.")
+        else:
+            print("Reading file...")
+            FileObj = open(TargetFile, "r")
+            FileLines = FileObj.readlines()
+            
+            print("Selected File has:")
+            print(str(len(FileLines)) + " Lines")
+            
+            if input("Continue? [Y/N] ")=="Y":
+                
+                for n in range(0,len(FileLines)):
+                    FileLines[n]=FileLines[n].strip("\n")
+                    if(messageValid(FileLines[n])==False):
+                        print("Error : Line "+str(n)+" has invalid characters and will not be decrypted "+FileLines[n])
+                    else:
+                        print("Decrypting Line: "+str(n+1)+"/"+str(len(FileLines)))
+                        FileLines[n]=decrypt(FileLines[n], key)+"\n"
+                        print("Done!")
+                print("File Decryption is done")
+                print("Writing to file...")
+                FileObj.close()
+                FileObj = open(TargetFile, "w+")
+                FileObj.writelines(FileLines)
+                print("Done!")
+    return
+####################################################################################################
 
 ####################################################################################################
 ######################################################### Main Loop
@@ -195,6 +235,8 @@ def loop():
             
         elif(func=="encryptf"):
             encryptFile()
+        elif(func=="decryptf"):
+            decryptFile()
         else: #Invalid
             print("Invalid Function.")
 
