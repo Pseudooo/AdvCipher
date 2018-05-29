@@ -1,4 +1,5 @@
 import random
+from pathlib import Path
 
 chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789 _-.,:;=(){}[]'?!\"\\@#$%&/+*�" #char set
 
@@ -98,7 +99,7 @@ def keyValid(key):
     r=""
     try:
         s,r=key.split("#") 
-        n=1 #Keys contain a variable n
+        n=1 #Keys contain a variable n (Hopefully)
         eval(s)
         eval(r)
     except:
@@ -155,6 +156,45 @@ def loop():
         else: #Invalid
             print("Invalid Function.")
 
+####################################################################################################
+
+####################################################################################################
+######################################################### Encrypt File Method
+def encryptFile():
+    
+    # Function that allows for the encryption of files 
+    print("Please note that this will only work for raw text files")
+    TargetFile = Path(input("File: "))
+    if TargetFile.is_file()==False:
+        print("The Path you have entered is not valid.")
+    else:
+        key = input("Key: ")
+        if keyValid(key)==False:
+            print("The Key you have entered is not valid.")
+        else:
+            print("Reading file...")
+            FileObj = open(TargetFile)
+            FileLines = FileObj.readlines()
+            
+            print("Selected File has:")
+            print(str(len(FileLines)) + " Lines")
+            
+            if input("Continue? [Y/N] ")=="Y":
+                
+                for n in range(0,len(FileLines)):
+                    if(messageValid(FileLines[n])==False):
+                        print("Error : Line "+str(n)+" has invalid characters and will not be encrypted")
+                    else:
+                        print("Encrypting Line: "+str(n)+"/"+str(len(FileLines)))
+                        FileLines[n]=encrypt(FileLines[n], key)+"\n"
+                        print("Done!")
+                print("File Encryption is done")
+                print("Writing to file...")
+                
+                FileObj.writelines(FileLines)
+                print("Done!")
+                    
+    
 ####################################################################################################
 
 loop()
