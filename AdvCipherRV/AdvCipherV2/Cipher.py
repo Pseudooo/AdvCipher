@@ -1,14 +1,26 @@
 import random
-chars = [chr(i) for i in range(32, 127)]
+
+chars = [chr(i) for i in range(32, 127)] # Define character set
 print(chars)
 
 # Function to verify that a key is valid
 def isKeyValid(key):
+    Allowed = "0123456789n#*+-/"
+    
+    for char in key: #Security check to restrict malicious code in key
+        Found = False
+        for check in Allowed:
+            if char == check:
+                Found = True
+                break
+        if(Found == False):
+            return False
+    
     try:
         a,b=key.split('#')
-        n=1
-        eval(a)
-        eval(b)
+        n=1 #declare variable for use in evaluation
+        int(eval(a))
+        int(eval(b))
         return True
     except:
         return False
@@ -58,7 +70,6 @@ while(active):
     
     if(func=="encrypt"): #encrypt command run
         key = input("Key: ")
-        
         if(isKeyValid(key) == False):
             print("Invalid key")
             continue
