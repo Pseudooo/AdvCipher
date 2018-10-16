@@ -7,14 +7,8 @@ print(chars)
 def isKeyValid(key):
     Allowed = "0123456789n#*+-/"
     
-    for char in key: #Security check to restrict malicious code in key
-        Found = False
-        for check in Allowed:
-            if char == check:
-                Found = True
-                break
-        if(Found == False):
-            return False
+    if any(char not in Allowed for char in key):
+        return False
     
     try:
         a,b=key.split('#')
