@@ -20,20 +20,20 @@ def isKeyValid(key):
         return False
 
 def encrypt(PlainText, Key):
-    s,r=Key.split('#')
+    shiftFunc,randFunc=Key.split('#')
     output=""
     
     CurrentChars = chars[:] # make copy of chars for shuffling
     
     for n in range(len(PlainText)):
         
-        s_v=eval(s) % len(chars) #Calc values of s and r for value of n
-        r_v=eval(r)
+        shift=eval(shiftFunc) % len(chars) #Calc values of s and r for value of n
+        randomize=eval(randFunc)
         
-        random.seed(r_v) # Shuffle the CurrentChars for random permutation of character set
+        random.seed(randomize) # Shuffle the CurrentChars for random permutation of character set
         random.shuffle(CurrentChars)
         
-        CharIndex = (CurrentChars.index(PlainText[n]) + s_v) % len(chars) #Apply shift
+        CharIndex = (CurrentChars.index(PlainText[n]) + shift) % len(chars) #Apply shift
         output+=CurrentChars[CharIndex]
         
     print(output)
